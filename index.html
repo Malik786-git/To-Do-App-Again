@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            background: cornflowerblue;
+            width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .appContainer {
+            min-height: 500px;
+            width: 400px;
+            background-color: rgb(11, 58, 146);
+            box-shadow: -9px 13px 13px -2px rgba(0, 0, 0, 0.74);
+            padding: 10px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+        }
+
+        #message {
+            width: 100%;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 5px;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        #notesContainer {
+            color: aliceblue;
+            min-height: 350px;
+        }
+
+        .note {
+            border-bottom: 2px solid rgb(255, 123, 0);
+            padding-bottom: 5px;
+        }
+
+        .delete {
+            padding: 5px;
+            color: white;
+            background: red;
+            border-radius: 6px;
+        }
+
+        .update {
+            padding: 5px;
+            color: white;
+            background: green;
+            border-radius: 6px;
+        }
+
+        #addNote {
+            padding: 5px;
+            color: white;
+            background: rgb(102, 136, 228);
+            border-radius: 6px;
+            border: 2px solid white;
+        }
+
+        #clearAll {
+            padding: 5px;
+            color: white;
+            background: rgb(102, 136, 228);
+            border-radius: 6px;
+            border: 2px solid white;
+        }
+        .error{
+            color: red;
+            display: block;
+            margin-bottom: 5px;
+            visibility: hidden;
+        }
+        .error.show{
+            visibility: visible;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="container-fluid main">
+        <div class="appContainer">
+            <h1>Todo App</h1>
+            <input id="message" type="text">
+            <small id="small" class="error">Plz add note here!</small>
+            <button id="addNote">Add Note</button>
+            <button id="clearAll">Clear All</button>
+            <br><br><br>
+            <div id="notesContainer">
+                <!-- <div class="note">
+                <p class="text">this is my first note</p>
+                <button class="update">Update</button> 
+                <button class="delete">Delete</button>
+             </div> -->
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        const message = document.getElementById('message');
+        const notesContainer = document.getElementById('notesContainer');
+        const small = document.getElementById('small');
+
+        const createNote = ()=>{
+           
+            let note = document.createElement('div');
+            let p = document.createElement('p');
+            let btnUpdate = document.createElement('button');
+            let btnDelete = document.createElement('button');
+
+            p.className = 'text';
+            note.className = 'note';
+            btnUpdate.className = 'update';
+            btnDelete.className = 'delete';
+
+
+            note.appendChild(p);
+            note.appendChild(btnUpdate);
+            note.appendChild(btnDelete);
+            notesContainer.appendChild(note);
+
+            p.innerText = message.value;
+            btnUpdate.innerText = 'Update';
+            btnDelete.innerText = 'Delete';
+            message.value = '';
+            console.log(note);
+
+            //  delete single note
+            btnDelete.addEventListener('click', ()=>{
+                note.innerHTML = '';
+                note.className = '';
+            });
+            
+            // update a single note
+            btnUpdate.addEventListener('click', ()=>{
+              let updateNode = prompt("Edit Change", p.innerText);  
+              p.innerText = updateNode;
+            })
+
+        }
+
+        document.getElementById('addNote').addEventListener('click', () => {
+            if (message.value === '') {
+                small.className = 'error show'
+            }else{
+                small.className = 'error'
+                createNote();
+            }
+        });
+
+        document.getElementById('clearAll').addEventListener('click', () => {
+              notesContainer.innerHTML = '';
+        });
+        
+
+
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
